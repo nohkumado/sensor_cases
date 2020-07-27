@@ -6,8 +6,9 @@ shell  = 2; //thickness of wall
 
 
 
+//color("red")
 jsnhr04_case();
-translate([0,-1.5*heigth,0])jsnhr04_lid();
+translate([0,1.5*heigth,0])jsnhr04_lid();
 
 
 
@@ -17,29 +18,25 @@ module jsnhr04_lid(d = shell,offset = .5)
       translate([0,0,1.5*shell])
   difference()
   {
-    cube([width+2*shell,heigth+2*shell,3*shell], center = true);
+    cube([width+shell,heigth+shell,3*shell], center = true);
     union()
     {
       translate([0,0,shell])
-        cube([width-2*shell,heigth-2*shell,3*shell], center = true);
-      color("blue")
-        translate([width/2,0,1.5*shell+.1])
+        cube([width-3*shell,heigth-3*shell,3*shell], center = true);
+        translate([width/2-shell/2,0,1.5*shell+.1])
         rotate([-90,00,0])
         insert(len = heigth, d = shell,offset = offset);
-      color("blue")
-        translate([-width/2,0,1.5*shell+.1])
+        translate([-width/2+shell/2,0,1.5*shell+.1])
         rotate([-90,00,0])
         insert(len = heigth, d = shell,offset = offset);
-      color("blue")
-        translate([0,heigth/2,1.5*shell+.1])
+        translate([0,heigth/2-shell/2,1.5*shell+.1])
+         rotate([0,00,90])
+         rotate([-90,00,0])
+         insert(len = width+2, d = shell,offset = offset);
+        translate([0,-heigth/2+shell/2,1.5*shell+.1])
         rotate([0,00,90])
         rotate([-90,00,0])
-        insert(len = width+2, d = shell,offset = offset);
-      color("blue")
-        translate([0,-heigth/2,1.5*shell+.1])
-        rotate([0,00,90])
-        rotate([-90,00,0])
-        insert(len = width+2, d = shell,offset = offset);
+        insert(len = width, d = shell,offset = offset);
     }
   }
 }
@@ -91,10 +88,14 @@ module jsnhr04_case()
         translate([0,0,2])
           cube([width-2*shell,heigth-2*shell,z], center = true);
       }
-    translate([0,0,shell+3.5])
-      jsnhr04controler(mask = 1);
+    union()
+    {
+      translate([0,0,shell+3.5])
+        jsnhr04controler(mask = 1);
+      translate([0,-heigth/2,z/2+1.15])cube([12,15,3], center = true);
+    }
   }
-    translate([0,0,shell+1.5])
+  translate([0,0,shell+1.5])
     difference()
     {
       jsnhr04controlerpads(mask = 3, h = 2);
@@ -103,4 +104,5 @@ module jsnhr04_case()
     }
   translate([width/2,heigth/2-shell,z/2])rotate([0,90,90])lasche();
   translate([-width/2,heigth/2,z/2])rotate([0,90,-90])lasche();
+  //color("blue")
 }
