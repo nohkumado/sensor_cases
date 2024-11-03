@@ -1,12 +1,12 @@
-use <../nohscadlib/fillet.scad>
+use <../../nohscadlib/fillet.scad>
 
 //AS5600(center = true);
 //translate([0,-40,0]) 
 //AS5600_case(center = true, h = 5);
 //translate([40,0,0]) 
-//AS5600_lid(center = false, tol = .1, h = 8, wd = 2);
+AS5600_lid(center = false, tol = .1, h = 8, wd = 2);
 //translate([-40,0,0]) 
-AS5600_stand(center = true, tol = .1, mask = 0.01,  holetol = 0.9, wd  =.5, h = 3);
+//AS5600_stand(center = true, tol = .1, mask = 0.01,  holetol = 0.9, wd  =.5, h = 3);
 //translate([0,40,0]) 
 //AS5600_washer(center = false, tol = .1, mask = 0,  holetol = 0, wd  =2, h = 5);
 
@@ -64,7 +64,7 @@ module AS5600_case(center = false, tol = .1, h = 10, wd = 2)
     {
       color("red")
       translate([0,0,wd/2+.01]) AS5600(center = true, mask = h+wd, tol = 1, holetol = tol);//remove all but the stands
-      translate([0,0,-wd]) cylinder(d=18, h=h+1*wd, center = true);
+      translate([0,0,-wd]) cylinder(d=18, h=h+1*wd, center = true);//center hollowing
       color("blue")
       translate([0,0,h/2+.01]) AS5600(center = true, mask = wd, tol=-1*wd/6, noholes=true); //make place for the lid
     }
